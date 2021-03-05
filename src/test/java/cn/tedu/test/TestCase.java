@@ -1,11 +1,19 @@
 package cn.tedu.test;
 
+import cn.tedu.bean.ExampleBean;
+import cn.tedu.bean.MYExampleBean;
+import cn.tedu.bean.Saw;
+import cn.tedu.bean.TestBean;
 import cn.tedu.config.Config;
 import cn.tedu.spring.DemoBean;
+import com.alibaba.druid.pool.DruidDataSource;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import java.sql.Connection;
+
 
 /**
  * test: 测试
@@ -87,6 +95,40 @@ public class TestCase {
         System.out.println(demoBean1==demoBean2);
         System.out.println(demoBean1==demoBean3);
     }
-
-
+    @Test
+    public void testComponentScan(){
+        /**
+         * 测试组件扫描
+         */
+        TestBean testBean=acac.getBean(TestBean.class);
+        System.out.println(testBean);
+    }
+    @Test
+    public void testExampleBean(){
+        ExampleBean exampleBean=acac.getBean(ExampleBean.class);
+        System.out.println(exampleBean);
+    }
+    @Test
+    public void testBeanID(){
+        String[] names=acac.getBeanNamesForType(ExampleBean.class);
+        for (String name:names){
+            System.out.println(name);
+        }
+        names=acac.getBeanNamesForType(MYExampleBean.class);
+        for (String name:names){
+            System.out.println(name);
+        }
+    }
+    @Test
+    public void testSaw(){
+        Saw s=acac.getBean(Saw.class);
+        System.out.println(s);
+    }
+    @Test
+    public void testDataSource() throws Exception {
+        DruidDataSource dataSource=acac.getBean(DruidDataSource.class);
+        Connection connection=dataSource.getConnection();
+        System.out.println(connection);
+        connection.close();
+    }
 }

@@ -1,7 +1,9 @@
 package cn.tedu.config;
 
 import cn.tedu.spring.DemoBean;
+import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
@@ -10,6 +12,12 @@ import org.springframework.context.annotation.Scope;
  * 表示当前类作为Spring的配置文件，其中可以声明Spring中创建的对象
  */
 @Configuration
+/**
+ * @ComponentScan("cn.tedu.bean") 开启组件扫描
+ * Spring 启动后会自动扫描cn.tedu.bean 包和其子包中类
+ * 如果类上标注了@Component 就会在Soring中创建该类型的对象
+ */
+@ComponentScan("cn.tedu.bean")
 public class Config {
     /**
      * @Bean Spring提供的注解,标注在创建对象的方法上
@@ -27,6 +35,20 @@ public class Config {
     @Scope("prototype")//多次调用,按照多个实例管理对象
     public DemoBean demoBean1(){
         return new DemoBean();
+    }
+
+    /**
+     * 利用Spring管理数据库
+     * @return
+     */
+    @Bean
+    public DruidDataSource dataSource(){
+        DruidDataSource dataSource=new DruidDataSource();
+//        dataSource.setDriverClassName();
+        dataSource.setUrl("jdbc:mysql://localhost:3306/db1?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true");
+        dataSource.setUsername("root");
+        dataSource.setPassword("root");
+        return dataSource;
     }
 
 }
