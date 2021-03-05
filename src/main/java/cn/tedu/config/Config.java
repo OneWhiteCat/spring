@@ -3,6 +3,7 @@ package cn.tedu.config;
 import cn.tedu.spring.DemoBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
 /**
  * @Configuration Spring提供的注解,用于标注在Spring配置类上
@@ -23,6 +24,7 @@ public class Config {
     }
     //常见对象的方法名，就是对象分配的唯一 BeanID
     @Bean
+    @Scope("prototype")//多次调用,按照多个实例管理对象
     public DemoBean demoBean1(){
         return new DemoBean();
     }
