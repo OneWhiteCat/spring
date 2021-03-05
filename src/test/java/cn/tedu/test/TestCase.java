@@ -1,9 +1,6 @@
 package cn.tedu.test;
 
-import cn.tedu.bean.ExampleBean;
-import cn.tedu.bean.MYExampleBean;
-import cn.tedu.bean.Saw;
-import cn.tedu.bean.TestBean;
+import cn.tedu.bean.*;
 import cn.tedu.config.Config;
 import cn.tedu.spring.DemoBean;
 import com.alibaba.druid.pool.DruidDataSource;
@@ -115,6 +112,10 @@ public class TestCase {
             System.out.println(name);
         }
         names=acac.getBeanNamesForType(MYExampleBean.class);
+        for (String name:names){
+            System.out.println(name);
+        }
+        names=acac.getBeanNamesForType(HelloBean.class);
         for (String name:names){
             System.out.println(name);
         }
